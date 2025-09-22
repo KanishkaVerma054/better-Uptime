@@ -71,7 +71,7 @@ describe("Can't fetch website", () => {
 
     it("Is able to fetch website that the user created", async() => {
         const websiteResponse = await axios.post(`${BACKEND_URL}/website`, {
-            url: "http://google.com"
+            url: "https://googhdjjhsdsdsdhdjhdj.com/"
         }, {
             headers: {
                 Authorization: token1
@@ -87,9 +87,9 @@ describe("Can't fetch website", () => {
         expect(getWebsiteResponse.data.user_id).toBe(userId1);
     })
 
-    it("Can't access created by other user", async() => {
+    it("Can't access website created by other user", async() => {
         const websiteResponse = await axios.post(`${BACKEND_URL}/website`, {
-            url: "http://google.com"
+            url: "https://googhdjjhsdsdsdhdjhdj.com/"
         }, {
             headers: {
                 Authorization: token1

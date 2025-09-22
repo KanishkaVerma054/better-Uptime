@@ -1,6 +1,6 @@
 import { Router, type Request, type Response } from "express";
 import { AuthInput } from "../types";
-import { prismaClient } from "store/client";
+import { prismaClient } from "@packages/store/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

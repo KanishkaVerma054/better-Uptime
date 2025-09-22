@@ -11,7 +11,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     }
 
     try{
-        let data = jwt.verify(header,process.env.JWT_SECRET!);
+        let data = jwt.verify(header, process.env.JWT_SECRET!);
 
         req.userId = data.sub as string;
         next();
