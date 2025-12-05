@@ -1,10 +1,20 @@
 import { Router } from "express";
 import { prismaClient } from "@packages/store/client";
-import { authMiddleware } from "../middleware/middleware";
 
 const router = Router();
 
-router.post("/website", authMiddleware, async (req, res) => {
+router.get("/websites", async (req, res) => {
+  const websites = await prismaClient.website.findMany({
+    where: {
+      user_id: req.userId
+    }
+  })
+  res.json({
+    websites
+  })
+})
+
+router.post("/website", async (req, res) => {
   if (!req.body.url) {
     res.status(411).json({});
     return;
@@ -23,7 +33,7 @@ router.post("/website", authMiddleware, async (req, res) => {
   });
 });
 
-router.get("/status/:websiteId", authMiddleware, async (req, res) => {
+router.get("/status/:websiteId", async (req, res) => {
   try {
         const website = await prismaClient.website.findFirst({
         where: {
@@ -37,7 +47,7 @@ router.get("/status/:websiteId", authMiddleware, async (req, res) => {
                 createdAt: "desc",
                 },
             ],
-            take: 1,
+            take: 10,
             },
         },
         });

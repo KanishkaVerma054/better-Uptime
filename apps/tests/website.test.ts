@@ -3,8 +3,6 @@ import axios from "axios";
 import { createUser } from "./lib/testUtils";
 import { BACKEND_URL } from "./lib/config";
 
-// let BACKEND_URL = "http://localhost:3000"
-
 describe("Website get created", () => {
     let token: string;
 
@@ -103,6 +101,45 @@ describe("Can't fetch website", () => {
                 }
             });
             expect(false, "Shouldn't be able to access website of a different user")
+        } catch (e) {
+            
+        }
+    })
+})
+
+describe("should be able to get all websites", () => {
+
+    let token: string, userId: string;
+
+    beforeAll(async () => {
+        const user = await createUser();
+        token = user.jwt
+        userId = user.id
+    })
+
+    it("Can fetch it's own set of websites", async() => {
+        await axios.post(`${BACKEND_URL}/website`, {
+            url: "https://google.com/"
+        }, {
+            headers: {
+                Authorization: token
+            }
+        })
+        await axios.post(`${BACKEND_URL}/website`, {
+            url: "https://facebook.com/"
+        }, {
+            headers: {
+                Authorization: token
+            }
+        })
+
+        try {
+            const response = await axios.get(`${BACKEND_URL}/websites`, {
+                headers: {
+                    Authorization: token
+                }
+            });
+            expect(response.data.websites.length == 2, "Incorrect number of websites created")
         } catch (e) {
             
         }

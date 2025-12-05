@@ -6,7 +6,7 @@
   "dependencies": {
     "@packages/redisClient": "workspace:*",
     "axios": "^1.12.2",
-    "@packages/store": "worksapce:*"
+    "@packages/store": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest"
